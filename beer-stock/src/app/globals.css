@@ -1,0 +1,38 @@
+/* app/globals.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  :root {
+    --britannia-navy: 26 35 50;
+    --britannia-gold: 212 175 55;
+    --britannia-copper: 184 115 51;
+    --britannia-cream: 245 242 232;
+  }
+  
+  body {
+    @apply bg-britannia-cream text-britannia-dark-gray;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-britannia-navy;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-britannia-gold text-britannia-navy font-bold py-2 px-4 rounded
+           hover:bg-britannia-copper transition-colors duration-200;
+  }
+  
+  .card-britannia {
+    @apply bg-white rounded-lg shadow-lg border border-britannia-light-gray
+           hover:shadow-xl transition-shadow duration-200;
+  }
+  
+  .input-britannia {
+    @apply border-britannia-light-gray focus:border-britannia-gold 
+           focus:ring-britannia-gold rounded-md;
+  }
+}
