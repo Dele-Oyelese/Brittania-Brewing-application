@@ -44,7 +44,7 @@ export function BeerCard({ beer, isAdmin = false }: BeerCardProps) {
         <div className="space-y-2">
           <h4 className="font-semibold text-sm">Pricing:</h4>
           <div className="grid grid-cols-2 gap-2 text-sm">
-            {beer.pricing.map((price) => (
+            {beer.pricing?.map((price) => (
               <div key={price.id} className="flex justify-between">
                 <span>{price.container_size}:</span>
                 <div className="flex items-center gap-2">
@@ -68,7 +68,7 @@ export function BeerCard({ beer, isAdmin = false }: BeerCardProps) {
           <div className="mt-4 pt-4 border-t">
             <div className="text-sm text-gray-600">
               Stock Levels:
-              {beer.pricing.map((price) => (
+              {beer.pricing?.map((price) => (
                 <div key={price.id} className="flex justify-between">
                   <span>{price.container_size}:</span>
                   <span>{price.stock_quantity} units</span>
