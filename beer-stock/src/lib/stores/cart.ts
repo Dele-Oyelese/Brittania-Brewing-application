@@ -1,13 +1,6 @@
-// lib/stores/cart.ts
-import { Beer, BeerPricing } from '@/types'
+import { Beer, BeerPricing, CartItem } from '@/types'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-
-interface CartItem {
-  beer: Beer
-  pricing: BeerPricing
-  quantity: number
-}
+import { createJSONStorage, persist } from 'zustand/middleware'
 
 interface CartStore {
   items: CartItem[]
@@ -27,13 +20,15 @@ export const useCartStore = create<CartStore>()(
       addItem: (beer, pricing, quantity = 1) => {
         set((state) => {
           const existingItem = state.items.find(
-            item => item.beer.id === beer.id && item.pricing.container_size === pricing.container_size
+            item => item.beer.id === beer.id &&
+              item.pricing.container_size === pricing.container_size
           )
 
           if (existingItem) {
             return {
               items: state.items.map(item =>
-                item.beer.id === beer.id && item.pricing.container_size === pricing.container_size
+                item.beer.id === beer.id &&
+                  item.pricing.container_size === pricing.container_size
                   ? { ...item, quantity: item.quantity + quantity }
                   : item
               )
@@ -49,7 +44,8 @@ export const useCartStore = create<CartStore>()(
       removeItem: (beerId, containerSize) => {
         set((state) => ({
           items: state.items.filter(
-            item => !(item.beer.id === beerId && item.pricing.container_size === containerSize)
+            item => !(item.beer.id === beerId &&
+              item.pricing.container_size === containerSize)
           )
         }))
       },
@@ -62,7 +58,8 @@ export const useCartStore = create<CartStore>()(
 
         set((state) => ({
           items: state.items.map(item =>
-            item.beer.id === beerId && item.pricing.container_size === containerSize
+            item.beer.id === beerId &&
+              item.pricing.container_size === containerSize
               ? { ...item, quantity }
               : item
           )
@@ -83,6 +80,8 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'britannia-cart-storage',
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({ items: state.items })
     }
   )
 )
